@@ -3,10 +3,10 @@ import { render } from 'react-dom';
 import { TodoList } from './components';
 
 const dummyTodos = [
-    { id: 0, isDone: true,  text: 'make components' },
-    { id: 1, isDone: false, text: 'design actions' },
-    { id: 2, isDone: false, text: 'implement reducer' },
-    { id: 3, isDone: false, text: 'connect components' }
+    { id: 0, isDone: true,  text: 'test1 strike' }, //test data
+    { id: 1, isDone: false, text: 'test2 nostrike' },
+    { id: 2, isDone: false, text: 'test3 nostrike' },
+    { id: 3, isDone: false, text: 'test4 nostrike' }
 ];
 
 render(
