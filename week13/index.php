@@ -6,25 +6,21 @@
 	$users = UsersDB::getUsers();
 ?>
 <html>
-	<head>
-		<title>Week 9 Assignmnet</title>
-		<link rel="stylesheet" href="main.css">
-	</head>
 	<body>
-		<table class="user-table">
+		<table style="width:100%">
 			<tr>
 				<th>ID</th>
-				<th>email</th>
-				<th>fname</th>
-				<th>lname</th>
-				<th>phone</th>
-				<th>birthdate</th>
-				<th>gender</th>
-				<th>password</th>
-			</tr>	
+				<th>Email</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Phone</th>
+				<th>Birthdate</th>
+				<th>Gender</th>
+				<th>Password</th>
+			</tr>
 			<?php foreach ($users as $user) : ?>
 				<?php echo $user->displayUserRow(); ?>
-			<?php endforeach; ?>		
+			<?php endforeach; ?>
 		</table>
 	</body>		
 </html>

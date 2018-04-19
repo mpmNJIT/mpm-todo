@@ -1,69 +1,73 @@
 <?php
-class UsersDB {
-    public static function getProductsByCategory($category_id) {
+class UsersDB
+{
+    public static function getUsers()
+    {
         $db = Database::getDB();
-        $category = CategoryDB::getCategory($category_id);
-        $query = 'SELECT * FROM products
-                  WHERE products.categoryID = :category_id
-                  ORDER BY productID';
+        $query = 'SELECT * FROM accounts';
         $statement = $db->prepare($query);
-        $statement->bindValue(":category_id", $category_id);
-        $statement->execute();
-        $rows = $statement->fetchAll();
-        $statement->closeCursor();
-    
-        foreach ($rows as $row) {
-            $product = new Product($category,
-                                   $row['productCode'],
-                                   $row['productName'],
-                                   $row['listPrice']);
-            $product->setId($row['productID']);
-            $products[] = $product;
-        }
-        return $products;
-    }
-    public static function getProduct($product_id) {
-        $db = Database::getDB();
-        $query = 'SELECT * FROM products
-                  WHERE productID = :product_id';
-        $statement = $db->prepare($query);
-        $statement->bindValue(":product_id", $product_id);
         $statement->execute();
         $row = $statement->fetch();
         $statement->closeCursor();
-    
-        $category = CategoryDB::getCategory($row['categoryID']);
-        $product = new Product($category,
-                               $row['productCode'],
-                               $row['productName'],
-                               $row['listPrice']);
-        $product->setID($row['productID']);
-        return $product;
+
+        $user = new User($row['email'],
+            $row['fname'],
+            $row['lname'],
+            $row['phone'],
+            $row['birthday'],
+            $row['gender'],
+            $row['password']);
+        $user->setId($row['id']);
+        return $user;
     }
-    public static function deleteProduct($product_id) {
+
+    public static function deleteUser($id)
+    {
         $db = Database::getDB();
-        $query = 'DELETE FROM products
-                  WHERE productID = :product_id';
+        $query = 'DELETE FROM accounts
+                  WHERE id = :id';
         $statement = $db->prepare($query);
-        $statement->bindValue(':product_id', $product_id);
+        $statement->bindValue(':id', $id);
         $statement->execute();
         $statement->closeCursor();
     }
-    public static function addProduct($product) {
+
+    public static function addProduct($user)
+    {
         $db = Database::getDB();
-        $category_id = $product->getCategory()->getID();
-        $code = $product->getCode();
-        $name = $product->getName();
-        $price = $product->getPrice();
-        $query = 'INSERT INTO products
-                     (categoryID, productCode, productName, listPrice)
+        $id = $user->getId();
+        $email = $user->getEmail();
+        $fname = $user->getFname();
+        $lname = $user->getLname();
+        $phone = $user->getPhone();
+        $birthday = $user->getBirthday();
+        $gender = $user->getGender();
+        $password = $user->getPassword();
+        $query = 'INSERT INTO accounts
+                     (id, email, fname, lname, phone, birthday, gender, password)
                   VALUES
-                     (:category_id, :code, :name, :price)';
+                     (:id, :email, :fname, :lname, :phone, :birthday, :gender, :password)';
         $statement = $db->prepare($query);
-        $statement->bindValue(':category_id', $category_id);
-        $statement->bindValue(':code', $code);
-        $statement->bindValue(':name', $name);
-        $statement->bindValue(':price', $price);
+        $statement->bindValue(':id', $id);
+        $statement->bindValue(':email', $email);
+        $statement->bindValue(':fname', $fname);
+        $statement->bindValue(':lname', $lname);
+        $statement->bindValue(':phone', $phone);
+        $statement->bindValue(':birthday', $birthday);
+        $statement->bindValue(':gender', $gender);
+        $statement->bindValue(':password', $password);
+        $statement->execute();
+        $statement->closeCursor();
+    }
+
+    public static function changePassword($id, $user)
+    {
+        $db = Database::getDB();
+        $password = $user->setPassword();
+        $query = 'UPDATE accounts SET password = :password WHERE id = :id';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':password', $password);
+        $statement->bindValue(':id', $id);
         $statement->execute();
         $statement->closeCursor();
     }
