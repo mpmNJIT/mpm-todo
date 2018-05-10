@@ -7,9 +7,10 @@ class UsersDB
         $query = 'SELECT * FROM accounts';
         $statement = $db->prepare($query);
         $statement->execute();
-        $row = $statement->fetch();
+        $rows = $statement->fetch();
         $statement->closeCursor();
 
+        foreach ($rows as $row){
         $user = new User($row['id'],
             $row['email'],
             $row['fname'],
@@ -19,7 +20,9 @@ class UsersDB
             $row['gender'],
             $row['password']);
         $user->setId($row['id']);
-        return $user;
+        $users[] = $user;
+        }
+        return $users;
     }
 
     public static function deleteUser($id)
