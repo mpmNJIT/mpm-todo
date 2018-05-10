@@ -31,7 +31,7 @@ $formPass = filter_input(INPUT_POST, 'pass');
         <div class="form-group">
             <label class="label" for="submit"></label>
             <div class="div">
-                <input name="submit" type="submit">
+                <input name="submit" type="submit" value="Login">
             </div>
         </div>
 
