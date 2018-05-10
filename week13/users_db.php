@@ -10,7 +10,8 @@ class UsersDB
         $row = $statement->fetch();
         $statement->closeCursor();
 
-        $user = new User($row['email'],
+        $user = new User($row['id'],
+            $row['email'],
             $row['fname'],
             $row['lname'],
             $row['phone'],
