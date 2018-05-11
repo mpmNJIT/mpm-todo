@@ -2,6 +2,10 @@
 // Values
 $formEmail = filter_input(INPUT_POST, 'email');
 $formPass = filter_input(INPUT_POST, 'pass');
+
+// Defaults
+$formEmail = (isset($formEmail)) ? $formEmail : '';
+$formPass = (isset($formPass)) ? $formPass : '';
 ?>
 <form class="form-horizontal" method = "post" action = "/todo_controller/index.php">
     <fieldset>

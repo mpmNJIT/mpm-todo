@@ -3,11 +3,14 @@ class Todo
 {
     private $id, $owneremail, $ownerid, $createddate, $duedate, $message, $isdone;
 
-    public function __construct($createddate, $duedate, $message)
+    public function __construct($owneremail, $ownerid, $createddate, $duedate, $message, $isdone)
     {
+        $this->owneremail = $owneremail;
+        $this->ownerid = $ownerid;
         $this->createddate = $createddate;
         $this->duedate = $duedate;
         $this->message = $message;
+        $this->isdone = $isdone;
     }
 
     /**
