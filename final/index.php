@@ -7,7 +7,7 @@ $formPass = filter_input(INPUT_POST, 'pass');
 $formEmail = (isset($formEmail)) ? $formEmail : '';
 $formPass = (isset($formPass)) ? $formPass : '';
 ?>
-<form class="form-horizontal" method = "post" action = "/todo_controller/index.php">
+<form class="form-horizontal" method = "post" action = "./todo_controller/index.php">
     <fieldset>
 
         <!-- Form Name -->
